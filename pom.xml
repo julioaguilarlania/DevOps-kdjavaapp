@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>mx.lania</groupId>
-	<artifactId>kdemo</artifactId>
+	<artifactId>kd-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kdemo</name>
+	<name>kd-app</name>
 	<description>Spring App for K8s Demo</description>
 	<url/>
 	<licenses>
