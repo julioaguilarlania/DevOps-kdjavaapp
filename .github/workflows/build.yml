@@ -2,9 +2,8 @@ name: Java Compile, Build Image and Publish
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - 'v*'
 
 env:
   IMAGE_NAME: kdjavaapp
