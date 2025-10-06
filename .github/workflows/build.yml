@@ -6,9 +6,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  IMAGE_NAME: kdjavaapp
+  
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +21,27 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+        
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: Github Container Registr login
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ env.IMAGE_NAME }}
+
+    - name: Build and push image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.output.tags }}
+        labels: ${{ step.meta.outputs.labels }}
