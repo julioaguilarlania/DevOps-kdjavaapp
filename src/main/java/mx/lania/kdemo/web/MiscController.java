@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Jaguilar
  */
 @RestController
-public class ListController {
+public class MiscController {
 
     @Autowired
     ApplicationEventPublisher pubiicadorEventos;
+    
+    private String VERSION = "2.0";
 
     @GetMapping("/data")
     List<String> getDataList() {
@@ -32,7 +34,6 @@ public class ListController {
 
     @GetMapping("/trabajo")
     List<Integer> realizarTrabajoComplejo(@RequestParam("unidades") Integer numUnidades) {
-        //pubiicadorEventos.publishEvent(ReadinessState.REFUSING_TRAFFIC);
         AvailabilityChangeEvent.publish(pubiicadorEventos, this, ReadinessState.REFUSING_TRAFFIC);
         Random rnd = new Random();
         List<Integer> resultados = new ArrayList<>();
@@ -78,5 +79,10 @@ public class ListController {
         BigInteger candidato = new BigInteger("5826543228209422189");
         generador.esPrimo(candidato);
         return "LISTO";
+    }
+    
+    @GetMapping("/version")
+    String getVersion() {
+        return VERSION;
     }
 }
